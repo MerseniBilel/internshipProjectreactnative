@@ -1,30 +1,49 @@
-import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import React from 'react';
+import {StyleSheet,FlatList, SafeAreaView, Text, View, Image } from 'react-native';
 
 const HomeScreen = () => {
-  const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetch('https://reactnative.dev/movies.json')
-      .then((response) => response.json())
-      .then((json) => setData(json.movies))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
-  }, []);
+ 
 
   return (
-    <View style={{ flex: 1, padding: 24 }}>
-      {isLoading ? <ActivityIndicator/> : (
-        <FlatList
-          data={data}
-          keyExtractor={({ id }, index) => id}
-          renderItem={({ item }) => (
-            <Text>{item.title}, {item.releaseYear}</Text>
-          )}
-        />
-      )}
+    <SafeAreaView
+    style={{
+        flex:1,
+        paddingHorizontal:20,
+        backgroundColor: '#fff',
+    }}>
+
+    <View style={style.header}>
+        <View>
+            <Text style={{
+                fontSize: 25, fontWeight:'bold'
+            }}>Welcome to</Text>
+            <Text style={{
+                fontSize:38, fontWeight:'bold', color: '#08d4c4'
+            }}>Odoo app</Text>
+        </View>
+
+        <Image 
+        style={{
+            marginTop:20,
+            width:28,
+            height:28
+        }}
+        source={require('../assets/plus.png')}/>
+
     </View>
+
+    
+
+    </SafeAreaView>
   );
 };
 export default HomeScreen;
+
+
+const style = StyleSheet.create({
+    header: {
+        marginTop: 20,
+        flexDirection:'row',
+        justifyContent:'space-between'
+    }
+})
